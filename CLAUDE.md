@@ -174,6 +174,7 @@ npm run db:studio     # visual DB browser (drizzle-kit studio)
 npm run build         # db setup + production build (what Hostinger runs)
 npm run start         # run the production build
 npm run lint          # eslint
+npm run typecheck     # next typegen + tsc (typegen creates the gitignored next-env.d.ts and PageProps types)
 npm run package       # deploy/sjec-site.zip for Hostinger ZIP upload (fallback)
 ```
 

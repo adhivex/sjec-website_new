@@ -13,9 +13,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           cache: npm
@@ -24,7 +24,8 @@ jobs:
 
       - run: npm run lint
 
-      - run: npx tsc --noEmit
+      # Generates next-env.d.ts and route types (gitignored) before type-checking.
+      - run: npm run typecheck
 
       # Same command Hostinger runs: builds sqlite.db from drizzle/ + seed, then next build.
       - run: npm run build

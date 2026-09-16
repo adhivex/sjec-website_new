@@ -9,6 +9,12 @@ updates:
       # v13 has no prebuilt binaries — see CLAUDE.md before upgrading.
       - dependency-name: better-sqlite3
         update-types: ["version-update:semver-major"]
+      # Majors need a deliberate upgrade: TypeScript 7 breaks the lint setup,
+      # and @types/node should track the Node version in .nvmrc.
+      - dependency-name: typescript
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: /
     schedule:
