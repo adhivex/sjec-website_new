@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+:root {
+  --color-ivory: #fbfaf6;
+  --color-ivory-deep: #f4f1ea;
+  --color-navy: #10182b;
+  --color-navy-soft: #3e4457;
+  --color-brass: #b08d57;
+  --color-brass-deep: #8a6d3b;
+  --color-line: #e7e2d8;
+  --color-muted: #6b7280;
+  --color-stone: #a69b85;
+}
+
+@theme inline {
+  --color-ivory: var(--color-ivory);
+  --color-ivory-deep: var(--color-ivory-deep);
+  --color-navy: var(--color-navy);
+  --color-navy-soft: var(--color-navy-soft);
+  --color-brass: var(--color-brass);
+  --color-brass-deep: var(--color-brass-deep);
+  --color-line: var(--color-line);
+  --color-muted: var(--color-muted);
+  --color-stone: var(--color-stone);
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
+  --font-body: var(--font-work-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Offset in-page anchors so headings clear the sticky nav */
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+body {
+  background: var(--color-ivory);
+  color: var(--color-navy);
+  font-family: var(--font-body);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+/* Reduce motion: respect the OS preference regardless of Framer Motion props */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

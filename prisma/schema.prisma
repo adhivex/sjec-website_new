@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  category    String   // "Commercial" | "Industrial" | "Residential"
+  summary     String
+  description String
+  year        String
+  location    String
+  imageUrl    String?
+  featured    Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Service {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  icon        String   // key mapped to a lucide-react icon on the frontend
+  order       Int      @default(0)
+}
+
+model Testimonial {
+  id        String  @id @default(cuid())
+  quote     String
+  author    String
+  role      String
+  order     Int     @default(0)
+}
+
+model Stat {
+  id     String @id @default(cuid())
+  label  String
+  value  String
+  order  Int    @default(0)
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  projectType String?
+  message   String
+  createdAt DateTime @default(now())
+}
