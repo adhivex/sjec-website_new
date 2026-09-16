@@ -58,8 +58,21 @@ export function Footer() {
           </div>
         </div>
       </div>
-      <div className="px-6 md:px-12 py-6 border-t border-line text-xs text-stone">
-        © {new Date().getFullYear()} {COMPANY.legalName}. All rights reserved.
+      <div className="px-6 md:px-12 py-6 border-t border-line text-xs text-stone flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <span>
+          © {new Date().getFullYear()} {COMPANY.legalName}. All rights reserved.
+        </span>
+        <span>
+          Designed &amp; Developed by{" "}
+          <a
+            href="https://orangekite.in/"
+            target="_blank"
+            rel="noopener"
+            className="font-medium text-navy-soft underline decoration-line underline-offset-4 transition-colors hover:text-brass-deep hover:decoration-brass"
+          >
+            OrangeKite
+          </a>
+        </span>
       </div>
     </footer>
   );
