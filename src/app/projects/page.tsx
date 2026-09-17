@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: "Projects",
   description:
     "Completed and ongoing electrical projects across cement, DRI, pellet and rolling mill plants in Odisha, Jharkhand and West Bengal.",
+  alternates: { canonical: "/projects" },
 };
 
 function totalCr(rows: Project[]) {
@@ -29,8 +30,8 @@ export default async function ProjectsPage() {
       <NavBar />
       <main>
         <section className="px-6 md:px-12 pt-16 md:pt-24 pb-16">
-          <Reveal className="mx-auto max-w-7xl">
-            <div className="text-xs md:text-sm font-semibold uppercase tracking-[0.12em] text-brass mb-6">
+          <div className="animate-rise mx-auto max-w-7xl">
+            <div className="text-xs md:text-sm font-semibold uppercase tracking-[0.12em] text-brass-ink mb-6">
               Projects
             </div>
             <h1 className="font-display text-[2.4rem] leading-[1.08] sm:text-5xl md:text-6xl font-medium text-navy max-w-3xl">
@@ -42,7 +43,7 @@ export default async function ProjectsPage() {
               <Figure value={String(ongoing.length)} label="Projects ongoing" />
               <Figure value={`₹${totalCr(ongoing)} Cr`} label="Ongoing contract value" />
             </dl>
-          </Reveal>
+          </div>
         </section>
 
         <ProjectGroup id="ongoing" title="Ongoing" rows={ongoing} tone="deep" />
@@ -96,7 +97,7 @@ function Figure({ value, label }: { value: string; label: string }) {
   return (
     <div className="flex flex-col-reverse">
       <dt className="text-sm text-muted mt-1.5">{label}</dt>
-      <dd className="font-display text-3xl md:text-[2.2rem] text-brass">{value}</dd>
+      <dd className="font-display text-3xl md:text-[2.2rem] text-brass-deep">{value}</dd>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import type { ReactNode } from "react";
 
 type RevealProps = {
@@ -12,7 +12,7 @@ type RevealProps = {
 
 export function Reveal({ children, delay = 0, y = 24, className }: RevealProps) {
   return (
-    <motion.div
+    <m.div
       className={className}
       initial="hidden"
       whileInView="visible"
@@ -24,7 +24,7 @@ export function Reveal({ children, delay = 0, y = 24, className }: RevealProps) 
       transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -38,7 +38,7 @@ export function RevealStagger({
   stagger?: number;
 }) {
   return (
-    <motion.div
+    <m.div
       className={className}
       initial="hidden"
       whileInView="visible"
@@ -46,7 +46,7 @@ export function RevealStagger({
       transition={{ staggerChildren: stagger }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -60,7 +60,7 @@ export function RevealItem({
   y?: number;
 }) {
   return (
-    <motion.div
+    <m.div
       className={className}
       variants={{
         hidden: { opacity: 0, y },
@@ -68,6 +68,6 @@ export function RevealItem({
       }}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

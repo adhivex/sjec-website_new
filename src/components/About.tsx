@@ -22,7 +22,7 @@ export function About() {
       <div className="mx-auto max-w-7xl">
         <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-12 lg:gap-20">
           <Reveal>
-            <div className="text-xs uppercase tracking-[0.12em] text-brass mb-5">About us</div>
+            <div className="text-xs uppercase tracking-[0.12em] text-brass-ink mb-5">About us</div>
             <h2 className="font-display text-3xl md:text-4xl font-medium text-navy leading-tight">
               Two decades on the plant floor.
             </h2>
@@ -79,7 +79,7 @@ export function About() {
             <ul className="grid grid-cols-2 gap-px bg-line border border-line">
               {EQUIPMENT.map((e) => (
                 <li key={e.label} className="bg-ivory p-5">
-                  <div className="font-display text-2xl text-brass">{e.qty}</div>
+                  <div className="font-display text-2xl text-brass-deep">{e.qty}</div>
                   <div className="mt-1 text-sm text-muted">{e.label}</div>
                 </li>
               ))}

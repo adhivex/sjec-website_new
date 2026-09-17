@@ -20,7 +20,7 @@ export function ProjectCard({ project }: { project: Project }) {
         <StatusBadge status={project.status} className="absolute left-3 top-3" />
       </div>
       <div className="pt-5">
-        <div className="text-xs uppercase tracking-[0.08em] text-brass mb-2">
+        <div className="text-xs uppercase tracking-[0.08em] text-brass-ink mb-2">
           {project.category} · {project.capacity}
         </div>
         <h3 className="font-display text-lg font-medium text-navy mb-1.5 group-hover:text-brass-deep transition-colors">

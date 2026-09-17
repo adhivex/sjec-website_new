@@ -7,9 +7,13 @@
   --color-navy-soft: #3e4457;
   --color-brass: #b08d57;
   --color-brass-deep: #8a6d3b;
+  /* Brass for small text: #b08d57 is only 2.96:1 on ivory (WCAG AA needs 4.5:1) */
+  --color-brass-ink: #7d6334;
   --color-line: #e7e2d8;
-  --color-muted: #6b7280;
-  --color-stone: #a69b85;
+  /* Darkened from #6b7280 so body text passes AA on ivory-deep too (4.8:1) */
+  --color-muted: #636a77;
+  /* Darkened from #a69b85 (2.6:1) so small stone text meets WCAG AA (5.0:1) */
+  --color-stone: #766b56;
 }
 
 @theme inline {
@@ -19,6 +23,7 @@
   --color-navy-soft: var(--color-navy-soft);
   --color-brass: var(--color-brass);
   --color-brass-deep: var(--color-brass-deep);
+  --color-brass-ink: var(--color-brass-ink);
   --color-line: var(--color-line);
   --color-muted: var(--color-muted);
   --color-stone: var(--color-stone);
@@ -44,6 +49,29 @@ body {
 .font-display {
   font-family: var(--font-display);
 }
+
+/* Above-the-fold entrances run in CSS, so they start at first paint instead of
+   waiting for React to hydrate. "rise" never hides content, so the LCP
+   element is visible immediately; "rise-fade" is for secondary elements. */
+@keyframes rise {
+  from { transform: translateY(18px); }
+  to { transform: none; }
+}
+
+@keyframes rise-fade {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+.animate-rise,
+.animate-rise-fade {
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  animation-fill-mode: both;
+}
+
+.animate-rise { animation-name: rise; }
+.animate-rise-fade { animation-name: rise-fade; }
 
 /* Reduce motion: respect the OS preference regardless of Framer Motion props */
 @media (prefers-reduced-motion: reduce) {

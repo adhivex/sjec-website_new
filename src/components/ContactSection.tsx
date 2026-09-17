@@ -56,7 +56,7 @@ export function ContactSection() {
                   name="message"
                   required
                   rows={5}
-                  className="w-full rounded-sm border border-line bg-ivory px-4 py-3 text-[15px] text-navy outline-none transition-colors focus:border-brass"
+                  className="w-full rounded-sm border border-line bg-ivory px-4 py-3 text-base lg:text-[15px] text-navy outline-none transition-colors focus:border-brass"
                   placeholder="Panels, cabling, instrumentation, commissioning, manpower..."
                 />
               </div>
@@ -80,18 +80,18 @@ function ContactDetails() {
   return (
     <ul className="space-y-5 text-[15px] text-navy">
       <li className="flex gap-4">
-        <Phone className="mt-0.5 shrink-0 text-brass" size={20} strokeWidth={1.5} />
-        <span className="flex flex-col gap-1">
+        <Phone className="mt-1.5 shrink-0 text-brass" size={20} strokeWidth={1.5} />
+        <span className="flex flex-col">
           {COMPANY.phones.map((p) => (
-            <a key={p} href={`tel:+91${p}`} className="hover:text-brass-deep transition-colors">
+            <a key={p} href={`tel:+91${p}`} className="py-1 hover:text-brass-deep transition-colors">
               +91 {p.slice(0, 5)} {p.slice(5)}
             </a>
           ))}
         </span>
       </li>
       <li className="flex gap-4">
-        <Mail className="mt-0.5 shrink-0 text-brass" size={20} strokeWidth={1.5} />
-        <a href={`mailto:${COMPANY.email}`} className="break-all hover:text-brass-deep transition-colors">
+        <Mail className="mt-1.5 shrink-0 text-brass" size={20} strokeWidth={1.5} />
+        <a href={`mailto:${COMPANY.email}`} className="py-1 break-all hover:text-brass-deep transition-colors">
           {COMPANY.email}
         </a>
       </li>
@@ -133,7 +133,7 @@ function Field({
         type={type}
         required={required}
         placeholder={placeholder}
-        className="w-full h-12 rounded-sm border border-line bg-ivory px-4 text-[15px] text-navy outline-none transition-colors focus:border-brass"
+        className="w-full h-12 rounded-sm border border-line bg-ivory px-4 text-base lg:text-[15px] text-navy outline-none transition-colors focus:border-brass"
       />
     </div>
   );

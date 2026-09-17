@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: PageProps<"/projects/[slug]">
   return {
     title: project.title,
     description: `${project.summary} ${project.location}.`,
+    alternates: { canonical: `/projects/${project.slug}` },
   };
 }
 
@@ -70,21 +71,21 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
               All projects
             </Link>
 
-            <Reveal className="mt-10 grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-end">
+            <div className="animate-rise mt-10 grid lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-16 items-end">
               <div>
                 <div className="flex flex-wrap items-center gap-4 mb-6">
                   <StatusBadge status={project.status} />
-                  <span className="text-xs uppercase tracking-[0.12em] text-brass">{project.category}</span>
+                  <span className="text-xs uppercase tracking-[0.12em] text-brass-ink">{project.category}</span>
                 </div>
                 <h1 className="font-display text-[2.3rem] leading-[1.08] sm:text-5xl font-medium text-navy">
                   {project.title}
                 </h1>
               </div>
               <p className="text-lg leading-relaxed text-muted">{project.summary}</p>
-            </Reveal>
+            </div>
 
             <div className="mt-12 grid lg:grid-cols-[1.4fr_0.6fr] gap-10 lg:gap-16">
-              <Reveal>
+              <div className="animate-rise" style={{ animationDelay: "120ms" }}>
                 {project.imageUrl && (
                   <figure>
                     <div className="relative h-[300px] sm:h-[460px] overflow-hidden rounded-sm bg-ivory-deep">
@@ -108,7 +109,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
                     <p key={para}>{para}</p>
                   ))}
                 </div>
-              </Reveal>
+              </div>
 
               <Reveal>
                 <dl className="border-t border-line">

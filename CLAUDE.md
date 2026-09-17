@@ -41,11 +41,25 @@ reintroduce their visual language unless asked.
   always compiles from source, which fails on Windows machines without
   Python and the Visual Studio build tools.
 - **Animation**: Framer Motion, via reusable wrappers in
-  `src/components/Reveal.tsx` (`Reveal`, `RevealStagger`, `RevealItem`) — scroll
-  -triggered fade/slide-up, plus a staggered entrance on the Hero. Keep
-  animations subtle (current values: 0.6–0.7s duration, 20–24px y-offset,
-  custom ease `[0.22, 1, 0.36, 1]`) — the client asked for "subtle premium,"
-  not flashy.
+  `src/components/Reveal.tsx` (`Reveal`, `RevealStagger`, `RevealItem`) —
+  scroll-triggered fade/slide-up for below-the-fold sections. Keep animations
+  subtle (current values: 0.6–0.7s duration, 18–24px y-offset, custom ease
+  `[0.22, 1, 0.36, 1]`) — the client asked for "subtle premium," not flashy.
+  - Framer runs through `LazyMotion` (`src/components/MotionProvider.tsx`,
+    `strict`), so use `m.*` components, never `motion.*`.
+  - **Above-the-fold content must not wait for JavaScript.** The hero and
+    the page headers on `/projects` and `/projects/[slug]` use the CSS classes
+    `.animate-rise` (transform only, so the content stays visible) and
+    `.animate-rise-fade` (secondary elements) from `globals.css`. Don't wrap
+    an h1, hero text or hero image in `Reveal`: on the live site that hid
+    the LCP element until hydration (about 2.3s render delay on mobile).
+    `Hero.tsx` is a server component for the same reason.
+- **Accessibility tokens (WCAG AA)**: `text-brass` (#b08d57) is only 2.96:1
+  on ivory, so it's for icons, buttons and borders only. Use `text-brass-ink`
+  for small brass text and `text-brass-deep` for large brass numerals. `stone`
+  (#766b56) and `muted` (#636a77) were darkened from the original values to
+  pass 4.5:1 on both ivory and ivory-deep. Keep tap targets at least 24px
+  tall and form fields at 16px below `lg` (iOS zooms on smaller text).
 - **Icons**: `lucide-react`.
 - **Images**: real site photos cropped from the profile PDF live in
   `public/images/site/` and render through `next/image` (`qualities` and
@@ -185,6 +199,13 @@ npm run package       # deploy/sjec-site.zip for Hostinger ZIP upload (fallback)
   page, `/sitemap.xml` and `/robots.txt`.
 - A clean copy of the ZIP package installs, builds twice, and serves every
   route with no database present at runtime (verified).
+- `next.config.ts` sends security headers (HSTS without includeSubDomains,
+  nosniff, frame and referrer policy), hides `X-Powered-By`, and redirects
+  `www.sjec.in` to `https://sjec.in`. Every page sets a canonical URL.
+- Live QA (Sept 2026): headless Edge at 375/768/1440px passes the menu,
+  anchor, lightbox, form, project-page and 404 checks, with zero axe WCAG
+  2 AA violations. Lighthouse scores 99–100 on desktop; on mobile, accessibility
+  and SEO score 100 and performance 81–91 under simulated throttling.
 
 ## Next steps (not yet done — pick up here)
 

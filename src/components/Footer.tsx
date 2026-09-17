@@ -39,16 +39,16 @@ export function Footer() {
         <FooterColumn title="Services" links={SERVICE_LINKS} />
         <div>
           <div className="text-xs uppercase tracking-[0.08em] text-stone mb-4">Contact</div>
-          <div className="flex flex-col gap-2.5 text-sm text-navy-soft">
+          <div className="flex flex-col gap-1 text-sm text-navy-soft">
             {COMPANY.phones.map((p) => (
-              <a key={p} href={`tel:+91${p}`} className="hover:text-navy transition-colors">
+              <a key={p} href={`tel:+91${p}`} className="py-1 hover:text-navy transition-colors">
                 +91 {p.slice(0, 5)} {p.slice(5)}
               </a>
             ))}
-            <a href={`mailto:${COMPANY.email}`} className="break-all hover:text-navy transition-colors">
+            <a href={`mailto:${COMPANY.email}`} className="py-1 break-all hover:text-navy transition-colors">
               {COMPANY.email}
             </a>
-            <address className="not-italic">
+            <address className="not-italic pt-1">
               {COMPANY.address.map((line) => (
                 <span key={line} className="block">
                   {line}
@@ -82,9 +82,9 @@ function FooterColumn({ title, links }: { title: string; links: { href: string; 
   return (
     <div>
       <div className="text-xs uppercase tracking-[0.08em] text-stone mb-4">{title}</div>
-      <div className="flex flex-col gap-2.5 text-sm text-navy-soft">
+      <div className="flex flex-col gap-1 text-sm text-navy-soft">
         {links.map((l) => (
-          <Link key={l.label} href={l.href} className="hover:text-navy transition-colors">
+          <Link key={l.label} href={l.href} className="py-1 hover:text-navy transition-colors">
             {l.label}
           </Link>
         ))}

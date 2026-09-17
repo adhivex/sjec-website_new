@@ -39,13 +39,13 @@ export function NavBar() {
           <span className="block font-display text-xl md:text-2xl font-semibold tracking-tight text-navy">
             {COMPANY.name}
           </span>
-          <span className="block mt-1 text-[10px] md:text-[11px] uppercase tracking-[0.16em] text-brass">
+          <span className="block mt-1 text-[11px] uppercase tracking-[0.16em] text-brass-ink">
             {COMPANY.tagline}
           </span>
         </Link>
         <nav className="hidden lg:flex items-center gap-9 text-sm text-navy-soft">
           {LINKS.map((link) => (
-            <Link key={link.href} href={link.href} className="hover:text-navy transition-colors">
+            <Link key={link.href} href={link.href} className="py-2 hover:text-navy transition-colors">
               {link.label}
             </Link>
           ))}

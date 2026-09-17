@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { GalleryImage } from "@/db/schema";
 import { Reveal, RevealItem, RevealStagger } from "./Reveal";
@@ -28,9 +28,9 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
             </p>
           </div>
         </Reveal>
-        <RevealStagger className="columns-1 sm:columns-2 lg:columns-3 gap-6" stagger={0.05}>
+        <RevealStagger className="columns-2 lg:columns-3 gap-3 sm:gap-6" stagger={0.05}>
           {images.map((img, i) => (
-            <RevealItem key={img.id} className="mb-6 break-inside-avoid">
+            <RevealItem key={img.id} className="mb-4 sm:mb-6 break-inside-avoid">
               <figure>
                 <button
                   type="button"
@@ -46,11 +46,11 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
                     alt={img.caption}
                     width={img.width}
                     height={img.height}
-                    sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                    sizes="(min-width: 1024px) 33vw, 50vw"
                     className="w-full h-auto transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.03]"
                   />
                 </button>
-                <figcaption className="mt-2.5 text-xs uppercase tracking-[0.08em] text-stone">
+                <figcaption className="mt-2 sm:mt-2.5 text-xs uppercase tracking-[0.08em] text-stone leading-snug">
                   {img.caption}
                 </figcaption>
               </figure>
@@ -106,7 +106,7 @@ function Lightbox({
   }, [onClose, step]);
 
   return (
-    <motion.div
+    <m.div
       role="dialog"
       aria-modal="true"
       aria-label="Photo viewer"
@@ -134,7 +134,7 @@ function Lightbox({
 
       <div className="relative flex-1 min-h-0 px-4 md:px-24" onClick={(e) => e.stopPropagation()}>
         <AnimatePresence mode="wait" initial={false}>
-          <motion.div
+          <m.div
             key={img.id}
             className="relative h-full w-full"
             initial={{ opacity: 0, y: 12 }}
@@ -143,7 +143,7 @@ function Lightbox({
             transition={{ duration: 0.35, ease: EASE }}
           >
             <Image src={img.src} alt={img.caption} fill sizes="100vw" quality={85} className="object-contain" />
-          </motion.div>
+          </m.div>
         </AnimatePresence>
         <NavButton label="Previous photo" className="left-2 md:left-8" onClick={() => step(-1)}>
           <ChevronLeft size={22} />
@@ -154,7 +154,7 @@ function Lightbox({
       </div>
 
       <p className="px-6 py-6 text-center text-xs uppercase tracking-[0.1em] text-ivory/80">{img.caption}</p>
-    </motion.div>
+    </m.div>
   );
 }
 

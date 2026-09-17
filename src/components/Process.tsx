@@ -35,7 +35,7 @@ export function Process() {
         <RevealStagger className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {STEPS.map((step) => (
             <RevealItem key={step.n}>
-              <div className="font-display text-4xl text-line mb-4">{step.n}</div>
+              <div className="font-display text-4xl text-stone/80 mb-4">{step.n}</div>
               <h3 className="font-display text-lg font-medium text-navy mb-2">{step.title}</h3>
               <p className="text-sm leading-relaxed text-muted">{step.body}</p>
             </RevealItem>

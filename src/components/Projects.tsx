@@ -14,7 +14,7 @@ export function Projects({ projects }: { projects: Project[] }) {
             <h2 className="font-display text-3xl md:text-4xl font-medium text-navy">Selected Projects</h2>
             <Link
               href="/projects"
-              className="group inline-flex items-center gap-2 text-[15px] font-semibold text-navy"
+              className="group inline-flex items-center gap-2 py-2 text-[15px] font-semibold text-navy"
             >
               All {projects.length} projects
               <ArrowRight size={18} className="text-brass transition-transform group-hover:translate-x-1" />

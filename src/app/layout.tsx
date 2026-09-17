@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Fraunces, Work_Sans } from "next/font/google";
 import { COMPANY } from "@/content/company";
 import { SITE_URL } from "@/lib/site";
+import { MotionProvider } from "@/components/MotionProvider";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -35,6 +36,10 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#fbfaf6",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -42,7 +47,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${fraunces.variable} ${workSans.variable}`}>
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <MotionProvider>{children}</MotionProvider>
+      </body>
     </html>
   );
 }

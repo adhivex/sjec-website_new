@@ -1,5 +1,6 @@
 import { db } from "@/db";
 import { galleryImages, projects, services, stats, testimonials } from "@/db/schema";
+import type { Metadata } from "next";
 import { asc } from "drizzle-orm";
 
 import { NavBar } from "@/components/NavBar";
@@ -14,6 +15,10 @@ import { Testimonial, CtaBand } from "@/components/Testimonial";
 import { ContactSection } from "@/components/ContactSection";
 import { Footer } from "@/components/Footer";
 import { StructuredData } from "@/components/StructuredData";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default async function Home() {
   const [statRows, serviceRows, projectRows, testimonialRows, galleryRows] = await Promise.all([

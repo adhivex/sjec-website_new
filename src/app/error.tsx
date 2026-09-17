@@ -18,7 +18,7 @@ export default function Error({
   return (
     <main className="px-6 md:px-12 py-32 md:py-40">
       <div className="mx-auto max-w-2xl text-center">
-        <div className="text-xs uppercase tracking-[0.12em] text-brass mb-5">Something went wrong</div>
+        <div className="text-xs uppercase tracking-[0.12em] text-brass-ink mb-5">Something went wrong</div>
         <h1 className="font-display text-4xl md:text-5xl font-medium text-navy mb-5">
           This page didn&rsquo;t load.
         </h1>

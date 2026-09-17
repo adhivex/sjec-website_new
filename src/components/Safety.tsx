@@ -24,7 +24,7 @@ export function Safety() {
           />
         </Reveal>
         <Reveal>
-          <div className="text-xs uppercase tracking-[0.12em] text-brass mb-5">Our commitment to safety</div>
+          <div className="text-xs uppercase tracking-[0.12em] text-brass-ink mb-5">Our commitment to safety</div>
           <h2 className="font-display text-3xl md:text-4xl font-medium text-navy mb-6">
             Our target is zero harm.
           </h2>
