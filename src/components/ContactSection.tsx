@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import { COMPANY } from "@/content/company";
 import { Reveal } from "./Reveal";
 
@@ -15,10 +15,9 @@ export function ContactSection() {
           <h2 className="font-display text-3xl md:text-4xl font-medium text-navy mb-3">
             Get in Touch
           </h2>
-          <p className="text-[15px] text-muted mb-10 max-w-sm">
+          <p className="text-[15px] text-muted max-w-sm">
             Tell us about your plant and scope — we&rsquo;ll get back to you with next steps.
           </p>
-          <ContactDetails />
         </Reveal>
 
         <Reveal>
@@ -76,36 +75,33 @@ export function ContactSection() {
   );
 }
 
+// Only rendered in the post-submit state, where the message tells the visitor
+// to call or email. The section itself carries no contact details: they are in
+// the footer, just below.
 function ContactDetails() {
   return (
-    <ul className="space-y-5 text-[15px] text-navy">
-      <li className="flex gap-4">
-        <Phone className="mt-1.5 shrink-0 text-brass" size={20} strokeWidth={1.5} />
-        <span className="flex flex-col">
-          {COMPANY.phones.map((p) => (
-            <a key={p} href={`tel:+91${p}`} className="py-1 hover:text-brass-deep transition-colors">
-              +91 {p.slice(0, 5)} {p.slice(5)}
-            </a>
-          ))}
-        </span>
-      </li>
-      <li className="flex gap-4">
-        <Mail className="mt-1.5 shrink-0 text-brass" size={20} strokeWidth={1.5} />
-        <a href={`mailto:${COMPANY.email}`} className="py-1 break-all hover:text-brass-deep transition-colors">
-          {COMPANY.email}
-        </a>
-      </li>
-      <li className="flex gap-4">
-        <MapPin className="mt-0.5 shrink-0 text-brass" size={20} strokeWidth={1.5} />
-        <address className="not-italic">
-          {COMPANY.address.map((line) => (
-            <span key={line} className="block">
-              {line}
-            </span>
-          ))}
-        </address>
-      </li>
-    </ul>
+    <div className="text-[15px] text-navy">
+      <p className="font-display text-lg font-medium text-navy">SJEC</p>
+      <p className="mt-1 text-muted">{COMPANY.region}, India</p>
+      <ul className="mt-6 space-y-3">
+        <li className="flex gap-4">
+          <Phone className="mt-1.5 shrink-0 text-brass" size={20} strokeWidth={1.5} />
+          <span className="flex flex-col">
+            {COMPANY.phones.map((p) => (
+              <a key={p} href={`tel:+91${p}`} className="py-1 hover:text-brass-deep transition-colors">
+                +91 {p.slice(0, 5)} {p.slice(5)}
+              </a>
+            ))}
+          </span>
+        </li>
+        <li className="flex gap-4">
+          <Mail className="mt-1.5 shrink-0 text-brass" size={20} strokeWidth={1.5} />
+          <a href={`mailto:${COMPANY.email}`} className="py-1 break-all hover:text-brass-deep transition-colors">
+            {COMPANY.email}
+          </a>
+        </li>
+      </ul>
+    </div>
   );
 }
 
