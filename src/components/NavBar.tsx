@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { COMPANY } from "@/content/company";
+import logo from "../../public/images/brand/logo-nav.png";
 
 // Absolute hashes so the nav also works from /projects pages.
 const LINKS = [
@@ -16,30 +18,21 @@ const LINKS = [
 ];
 
 export function NavBar() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const solid = scrolled || open;
-
   return (
-    <header
-      className={`sticky top-0 z-50 transition-colors duration-300 ${
-        solid ? "bg-ivory/90 backdrop-blur border-b border-line" : "bg-transparent border-b border-transparent"
-      }`}
-    >
+    // Solid ivory at all times: the home hero behind it is a dark photograph.
+    <header className="sticky top-0 z-50 bg-ivory/95 backdrop-blur border-b border-line">
       <div className="mx-auto flex h-20 md:h-24 max-w-7xl items-center justify-between gap-6 px-6 md:px-12">
-        <Link href="/" className="leading-none" onClick={() => setOpen(false)}>
-          <span className="block font-display text-xl md:text-2xl font-semibold tracking-tight text-navy">
-            {COMPANY.name}
-          </span>
-          <span className="block mt-1 text-[11px] uppercase tracking-[0.16em] text-brass-ink">
+        <Link
+          href="/"
+          onClick={() => setOpen(false)}
+          className="leading-none"
+          aria-label={`${COMPANY.legalName} — home`}
+        >
+          {/* The lockup's own tagline is illegible at nav size, so it is set as text below. */}
+          <Image src={logo} alt="SJEC" preload className="h-8 md:h-10 w-auto" sizes="140px" />
+          <span className="mt-1.5 block text-[10px] sm:text-[11px] uppercase tracking-[0.14em] text-brass-ink">
             {COMPANY.tagline}
           </span>
         </Link>

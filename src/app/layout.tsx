@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: COMPANY.legalName,
     description,
-    images: ["/images/site/dri-kiln-hero.jpg"],
+    images: ["/images/brand/hero.jpg"],
     locale: "en_IN",
     type: "website",
   },

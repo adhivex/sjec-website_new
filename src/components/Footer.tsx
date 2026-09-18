@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import { COMPANY } from "@/content/company";
+import logo from "../../public/images/brand/logo-nav.png";
 
 const COMPANY_LINKS = [
   { href: "/#about", label: "About" },
@@ -19,7 +21,7 @@ export function Footer() {
     <footer>
       <div className="mx-auto max-w-7xl px-6 md:px-12 py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10 border-t border-line">
         <div>
-          <div className="font-display text-xl font-semibold text-navy mb-3.5">{COMPANY.legalName}</div>
+          <Image src={logo} alt={COMPANY.legalName} className="h-10 w-auto mb-5" sizes="140px" />
           <p className="text-sm leading-relaxed text-muted max-w-xs">
             Licensed electrical HT/LT contractor and general order supplier, serving industry from{" "}
             {COMPANY.region} since {COMPANY.journeyBegan}.

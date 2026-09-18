@@ -9,8 +9,8 @@ export function StructuredData() {
     "@id": absoluteUrl("/#business"),
     name: COMPANY.legalName,
     url: absoluteUrl("/"),
-    image: absoluteUrl("/images/site/dri-kiln-hero.jpg"),
-    logo: absoluteUrl("/icon.svg"),
+    image: absoluteUrl("/images/brand/hero.jpg"),
+    logo: absoluteUrl("/images/brand/logo.png"),
     description:
       "Electrical HT/LT contractor and general order supplier: electrical erection, cabling, instrumentation and commissioning for industrial plants.",
     telephone: COMPANY.phones.map((p) => `+91${p}`),

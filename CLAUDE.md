@@ -64,6 +64,24 @@ reintroduce their visual language unless asked.
 - **Images**: real site photos cropped from the profile PDF live in
   `public/images/site/` and render through `next/image` (`qualities` and
   `localPatterns` are set in `next.config.ts`, which Next 16 requires).
+- **Brand assets**: the client's artwork (wheel-and-torch mark, SJEC wordmark)
+  is in `design/brand-source/` — originals, not served. Web versions are in
+  `public/images/brand/`:
+  - `logo-nav.png` — wheel + SJEC without the lockup's tagline line, used in
+    the nav and footer. The lockup's own tagline is unreadable below ~64px, so
+    NavBar sets it as HTML text underneath instead.
+  - `logo.png` — the full lockup, for schema.org `logo` only.
+  - `logo-icon.png` — the wheel on its own.
+  - `hero.jpg` — the home hero background.
+  - App icons (`src/app/icon.png`, `apple-icon.png`, `favicon.ico`) are the
+    brass wheel on the navy brand square, generated from the source artwork.
+  Regenerate them with `scripts/brand-assets.mjs` if the artwork changes.
+- **Home hero**: a full-bleed photograph with a navy overlay
+  (`bg-navy/80`, and a left-to-right gradient from `lg`). Measured contrast
+  behind the text is 8:1 or better — keep it there if the overlay changes.
+  The NavBar is solid ivory at all times because the dark hero sits directly
+  beneath it. Don't add `placeholder="blur"` to the hero: on a full-viewport
+  image the blurred placeholder measurably increased main-thread work.
 - **Contact form**: intentionally static — `src/components/ContactSection.tsx`
   only sets local state on submit, no network call. The client explicitly said
   "no working backend for now." After submit it tells the visitor that online
