@@ -73,6 +73,27 @@ body {
 .animate-rise { animation-name: rise; }
 .animate-rise-fade { animation-name: rise-fade; }
 
+/* Mobile menu: a native <details> disclosure so it opens and closes without
+   JavaScript. Hide the default marker and swap the hamburger for a close
+   icon when open. */
+.nav-menu > summary {
+  list-style: none;
+}
+
+.nav-menu > summary::-webkit-details-marker,
+.nav-menu > summary::marker {
+  display: none;
+}
+
+.nav-menu .nav-menu-close-icon,
+.nav-menu[open] .nav-menu-open-icon {
+  display: none;
+}
+
+.nav-menu[open] .nav-menu-close-icon {
+  display: block;
+}
+
 /* Scroll reveals for below-the-fold sections.
    The markup always renders visible. src/components/ScrollReveal.tsx adds
    .will-reveal only to elements that are below the fold when it runs, so a

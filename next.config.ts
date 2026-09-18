@@ -17,7 +17,20 @@ const nextConfig: NextConfig = {
     localPatterns: [{ pathname: "/images/**", search: "" }],
   },
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      {
+        // Pages must be revalidated, never reused blindly. Next serves them
+        // with `s-maxage=31536000`, which lets any shared cache (a CDN, a
+        // mobile carrier proxy) keep the HTML for a year. After a deploy that
+        // stale HTML asks for script chunks that no longer exist, so the page
+        // renders but nothing works — that is how the mobile menu "did
+        // nothing" on a real phone while every test passed.
+        // Hashed assets under /_next/static keep their immutable caching.
+        source: "/((?!_next/static|_next/image).*)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=0, must-revalidate" }],
+      },
+    ];
   },
   async redirects() {
     return [
