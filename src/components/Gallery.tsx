@@ -2,16 +2,18 @@
 
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import Image from "next/image";
-import { AnimatePresence, m } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import type { GalleryImage } from "@/db/schema";
 import { Reveal, RevealItem, RevealStagger } from "./Reveal";
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
 export function Gallery({ images }: { images: GalleryImage[] }) {
   const [active, setActive] = useState<number | null>(null);
   const openerRef = useRef<HTMLButtonElement | null>(null);
+
+  const close = useCallback(() => {
+    setActive(null);
+    openerRef.current?.focus();
+  }, []);
 
   if (images.length === 0) return null;
 
@@ -28,7 +30,7 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
             </p>
           </div>
         </Reveal>
-        <RevealStagger className="columns-2 lg:columns-3 gap-3 sm:gap-6" stagger={0.05}>
+        <RevealStagger className="columns-2 lg:columns-3 gap-3 sm:gap-6">
           {images.map((img, i) => (
             <RevealItem key={img.id} className="mb-4 sm:mb-6 break-inside-avoid">
               <figure>
@@ -59,11 +61,9 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
         </RevealStagger>
       </div>
 
-      <AnimatePresence onExitComplete={() => openerRef.current?.focus()}>
-        {active !== null && (
-          <Lightbox images={images} index={active} onChange={setActive} onClose={() => setActive(null)} />
-        )}
-      </AnimatePresence>
+      {active !== null && (
+        <Lightbox images={images} index={active} onChange={setActive} onClose={close} />
+      )}
     </section>
   );
 }
@@ -106,15 +106,12 @@ function Lightbox({
   }, [onClose, step]);
 
   return (
-    <m.div
+    <div
       role="dialog"
       aria-modal="true"
       aria-label="Photo viewer"
-      className="fixed inset-0 z-[60] flex flex-col bg-navy/95 backdrop-blur-sm"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3, ease: EASE }}
+      className="animate-rise-fade fixed inset-0 z-[60] flex flex-col bg-navy/95 backdrop-blur-sm"
+      style={{ animationDuration: "0.25s" }}
       onClick={onClose}
     >
       <div className="flex items-center justify-between px-6 md:px-12 h-20 text-ivory/70 text-sm">
@@ -133,18 +130,10 @@ function Lightbox({
       </div>
 
       <div className="relative flex-1 min-h-0 px-4 md:px-24" onClick={(e) => e.stopPropagation()}>
-        <AnimatePresence mode="wait" initial={false}>
-          <m.div
-            key={img.id}
-            className="relative h-full w-full"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease: EASE }}
-          >
-            <Image src={img.src} alt={img.caption} fill sizes="100vw" quality={85} className="object-contain" />
-          </m.div>
-        </AnimatePresence>
+        {/* key remounts the figure so the CSS entrance runs on every photo change */}
+        <div key={img.id} className="animate-rise-fade relative h-full w-full" style={{ animationDuration: "0.35s" }}>
+          <Image src={img.src} alt={img.caption} fill sizes="100vw" quality={85} className="object-contain" />
+        </div>
         <NavButton label="Previous photo" className="left-2 md:left-8" onClick={() => step(-1)}>
           <ChevronLeft size={22} />
         </NavButton>
@@ -154,7 +143,7 @@ function Lightbox({
       </div>
 
       <p className="px-6 py-6 text-center text-xs uppercase tracking-[0.1em] text-ivory/80">{img.caption}</p>
-    </m.div>
+    </div>
   );
 }
 

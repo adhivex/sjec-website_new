@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Work_Sans } from "next/font/google";
 import { COMPANY } from "@/content/company";
 import { SITE_URL } from "@/lib/site";
-import { MotionProvider } from "@/components/MotionProvider";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -48,7 +48,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fraunces.variable} ${workSans.variable}`}>
       <body className="antialiased">
-        <MotionProvider>{children}</MotionProvider>
+        {children}
+        <ScrollReveal />
       </body>
     </html>
   );

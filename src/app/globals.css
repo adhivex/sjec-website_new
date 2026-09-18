@@ -73,7 +73,29 @@ body {
 .animate-rise { animation-name: rise; }
 .animate-rise-fade { animation-name: rise-fade; }
 
-/* Reduce motion: respect the OS preference regardless of Framer Motion props */
+/* Scroll reveals for below-the-fold sections.
+   The markup always renders visible. src/components/ScrollReveal.tsx adds
+   .will-reveal only to elements that are below the fold when it runs, so a
+   slow, failed or disabled script can never leave the page blank — that
+   shipped once (Framer Motion wrote opacity:0 into the HTML) and phones
+   showed empty boxes until hydration finished. */
+.will-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.will-reveal.is-revealed {
+  animation: rise-fade 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .will-reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Reduce motion: respect the OS preference regardless of any animation props */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.001ms !important;

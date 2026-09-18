@@ -29,3 +29,11 @@ jobs:
 
       # Same command Hostinger runs: builds sqlite.db from drizzle/ + seed, then next build.
       - run: npm run build
+
+      # The page must render without JavaScript: hidden-until-hydration content
+      # looked broken on real phones and passed every emulated check.
+      - name: Content renders without JavaScript
+        run: |
+          npm run start &
+          npx wait-on http://localhost:3000 -t 60000
+          node scripts/check-no-js.mjs http://localhost:3000

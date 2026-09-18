@@ -12,12 +12,12 @@
     "db:seed": "tsx scripts/db-setup.ts",
     "db:generate": "drizzle-kit generate",
     "db:studio": "drizzle-kit studio",
-    "package": "node scripts/package.mjs"
+    "package": "node scripts/package.mjs",
+    "check:nojs": "node scripts/check-no-js.mjs"
   },
   "dependencies": {
     "better-sqlite3": "^12.11.1",
     "drizzle-orm": "^0.45.2",
-    "framer-motion": "^13.4.0",
     "lucide-react": "^1.46.0",
     "next": "16.3.5",
     "react": "19.2.8",

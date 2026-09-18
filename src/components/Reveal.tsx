@@ -1,73 +1,24 @@
-"use client";
-
-import { m } from "framer-motion";
 import type { ReactNode } from "react";
+
+// Server components: the scroll reveal is pure CSS (see `.reveal` in
+// globals.css). Nothing here hides content, so the page is fully readable
+// before — or without — JavaScript. Framer Motion used to render these with
+// `opacity: 0` in the HTML, which left phones staring at empty boxes until
+// hydration finished.
 
 type RevealProps = {
   children: ReactNode;
-  delay?: number;
-  y?: number;
   className?: string;
 };
 
-export function Reveal({ children, delay = 0, y = 24, className }: RevealProps) {
-  return (
-    <m.div
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      variants={{
-        hidden: { opacity: 0, y },
-        visible: { opacity: 1, y: 0 },
-      }}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </m.div>
-  );
+export function Reveal({ children, className }: RevealProps) {
+  return <div className={className ? `reveal ${className}` : "reveal"}>{children}</div>;
 }
 
-export function RevealStagger({
-  children,
-  className,
-  stagger = 0.08,
-}: {
-  children: ReactNode;
-  className?: string;
-  stagger?: number;
-}) {
-  return (
-    <m.div
-      className={className}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ staggerChildren: stagger }}
-    >
-      {children}
-    </m.div>
-  );
+export function RevealStagger({ children, className }: RevealProps) {
+  return <div className={className ? `reveal-stagger ${className}` : "reveal-stagger"}>{children}</div>;
 }
 
-export function RevealItem({
-  children,
-  className,
-  y = 20,
-}: {
-  children: ReactNode;
-  className?: string;
-  y?: number;
-}) {
-  return (
-    <m.div
-      className={className}
-      variants={{
-        hidden: { opacity: 0, y },
-        visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-      }}
-    >
-      {children}
-    </m.div>
-  );
+export function RevealItem({ children, className }: RevealProps) {
+  return <div className={className}>{children}</div>;
 }

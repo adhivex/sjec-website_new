@@ -40,20 +40,26 @@ reintroduce their visual language unless asked.
   **better-sqlite3 is pinned to v12**: v13 ships no prebuilt binaries and
   always compiles from source, which fails on Windows machines without
   Python and the Visual Studio build tools.
-- **Animation**: Framer Motion, via reusable wrappers in
-  `src/components/Reveal.tsx` (`Reveal`, `RevealStagger`, `RevealItem`) —
-  scroll-triggered fade/slide-up for below-the-fold sections. Keep animations
-  subtle (current values: 0.6–0.7s duration, 18–24px y-offset, custom ease
-  `[0.22, 1, 0.36, 1]`) — the client asked for "subtle premium," not flashy.
-  - Framer runs through `LazyMotion` (`src/components/MotionProvider.tsx`,
-    `strict`), so use `m.*` components, never `motion.*`.
-  - **Above-the-fold content must not wait for JavaScript.** The hero and
-    the page headers on `/projects` and `/projects/[slug]` use the CSS classes
-    `.animate-rise` (transform only, so the content stays visible) and
-    `.animate-rise-fade` (secondary elements) from `globals.css`. Don't wrap
-    an h1, hero text or hero image in `Reveal`: on the live site that hid
-    the LCP element until hydration (about 2.3s render delay on mobile).
-    `Hero.tsx` is a server component for the same reason.
+- **Animation**: CSS only — **there is no animation library**. Framer Motion
+  was removed (Sept 2026) because it rendered every scroll reveal with
+  `opacity: 0` in the HTML: on real phones the page showed empty boxes until
+  hydration finished, which read as "the site is broken". Keep animations
+  subtle (0.6–0.7s, 18–24px y-offset, ease `[0.22, 1, 0.36, 1]`) — the client
+  asked for "subtle premium," not flashy.
+  - **No content may depend on JavaScript to become visible.** This is the
+    rule that matters; everything below follows from it.
+  - Above the fold (hero, `/projects` and `/projects/[slug]` headers): the
+    CSS classes `.animate-rise` (transform only) and `.animate-rise-fade`
+    from `globals.css`, which run at first paint. `Hero.tsx` is a server
+    component for the same reason.
+  - Below the fold: `src/components/Reveal.tsx` (`Reveal`, `RevealStagger`,
+    `RevealItem`) are plain server components that only add class names.
+    `src/components/ScrollReveal.tsx` (one small client component in the root
+    layout) hides *only* what is below the fold when it runs and fades it in
+    with an IntersectionObserver. No script, slow script, failed script or
+    reduced-motion preference can leave content hidden.
+  - If you reintroduce an animation library, check the server HTML for
+    `opacity:0` first, and test with JavaScript disabled.
 - **Accessibility tokens (WCAG AA)**: `text-brass` (#b08d57) is only 2.96:1
   on ivory, so it's for icons, buttons and borders only. Use `text-brass-ink`
   for small brass text and `text-brass-deep` for large brass numerals. `stone`
@@ -120,7 +126,8 @@ src/
     Testimonial.tsx     — testimonial quote + closing CTA band
     ContactSection.tsx  — contact details + static form
     Footer.tsx          — footer (from content/company.ts)
-    Reveal.tsx          — Framer Motion scroll-reveal primitives
+    Reveal.tsx          — scroll-reveal wrappers (class names only, no JS)
+    ScrollReveal.tsx    — client: hides below-the-fold reveals after hydration, fades them in
   db/
     schema.ts           — projects (client, status, capacity, valueCr, period, …),
                           services, testimonials, stats, galleryImages, contactSubmissions
@@ -223,7 +230,12 @@ npm run package       # deploy/sjec-site.zip for Hostinger ZIP upload (fallback)
 - Live QA (Sept 2026): headless Edge at 375/768/1440px passes the menu,
   anchor, lightbox, form, project-page and 404 checks, with zero axe WCAG
   2 AA violations. Lighthouse scores 99–100 on desktop; on mobile, accessibility
-  and SEO score 100 and performance 81–91 under simulated throttling.
+  and SEO score 100 and performance 85–96 under simulated throttling.
+- **Mobile regression test — run this before every release**: load the page
+  with JavaScript disabled and confirm nothing renders at zero opacity and
+  every section is readable. `scripts/check-no-js.mjs` does it headlessly.
+  A build that fails this looks broken on real phones even though every
+  emulated check passes.
 
 ## Next steps (not yet done — pick up here)
 
